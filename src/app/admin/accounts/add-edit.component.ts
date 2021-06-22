@@ -27,9 +27,9 @@ export class AddEditComponent implements OnInit {
         this.isAddMode = !this.id;
 
         this.form = this.formBuilder.group({
-            title: ['', Validators.required],
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
+            // title: ['', Validators.required],
+            // firstName: ['', Validators.required],
+            name: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
             role: ['', Validators.required],
             password: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
