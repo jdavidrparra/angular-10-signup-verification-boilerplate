@@ -5,9 +5,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
-import { Account } from '@app/_models';
+import { Account, Role, ResponseBase } from '@app/_models';
 
-const baseUrl = `${environment.apiUrl}/accounts`;
+const baseUrl = `${environment.apiUrl}/account`;
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -23,15 +23,15 @@ export class AccountService {
     }
 
     public get accountValue(): Account {
-        return this.accountSubject.value;
+        return this.accountSubject.value;     
     }
 
     login(email: string, password: string) {
         return this.http.post<any>(`${baseUrl}/authenticate`, { email, password }, { withCredentials: true })
             .pipe(map(account => {
-                this.accountSubject.next(account);
+                this.accountSubject.next(account.data);
                 this.startRefreshTokenTimer();
-                return account;
+                return account.data;
             }));
     }
 
@@ -45,9 +45,9 @@ export class AccountService {
     refreshToken() {
         return this.http.post<any>(`${baseUrl}/refresh-token`, {}, { withCredentials: true })
             .pipe(map((account) => {
-                this.accountSubject.next(account);
+                this.accountSubject.next(account.data);
                 this.startRefreshTokenTimer();
-                return account;
+                return account.data;
             }));
     }
 
@@ -84,15 +84,16 @@ export class AccountService {
     }
     
     update(id, params) {
+        debugger;
         return this.http.put(`${baseUrl}/${id}`, params)
             .pipe(map((account: any) => {
                 // update the current account if it was updated
-                if (account.id === this.accountValue.id) {
+                if (account.data.id === this.accountValue.id) {
                     // publish updated account to subscribers
                     account = { ...this.accountValue, ...account };
-                    this.accountSubject.next(account);
+                    this.accountSubject.next(account.data);
                 }
-                return account;
+                return account.data;
             }));
     }
     
@@ -111,6 +112,7 @@ export class AccountService {
 
     private startRefreshTokenTimer() {
         // parse json object from base64 encoded jwt token
+        debugger;
         const jwtToken = JSON.parse(atob(this.accountValue.jwtToken.split('.')[1]));
 
         // set a timeout to refresh the token a minute before it expires

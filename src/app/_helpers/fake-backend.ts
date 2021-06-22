@@ -22,23 +22,23 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function handleRoute() {
             switch (true) {
-                case url.endsWith('/accounts/authenticate') && method === 'POST':
+                case url.endsWith('/account/authenticate') && method === 'POST':
                     return authenticate();
-                case url.endsWith('/accounts/refresh-token') && method === 'POST':
+                case url.endsWith('/account/refresh-token') && method === 'POST':
                     return refreshToken();
-                case url.endsWith('/accounts/revoke-token') && method === 'POST':
+                case url.endsWith('/account/revoke-token') && method === 'POST':
                     return revokeToken();
-                case url.endsWith('/accounts/register') && method === 'POST':
+                case url.endsWith('/account/register') && method === 'POST':
                     return register();
-                case url.endsWith('/accounts/verify-email') && method === 'POST':
+                case url.endsWith('/account/verify-email') && method === 'POST':
                     return verifyEmail();
-                case url.endsWith('/accounts/forgot-password') && method === 'POST':
+                case url.endsWith('/account/forgot-password') && method === 'POST':
                     return forgotPassword();
-                case url.endsWith('/accounts/validate-reset-token') && method === 'POST':
+                case url.endsWith('/account/validate-reset-token') && method === 'POST':
                     return validateResetToken();
-                case url.endsWith('/accounts/reset-password') && method === 'POST':
+                case url.endsWith('/account/reset-password') && method === 'POST':
                     return resetPassword();
-                case url.endsWith('/accounts') && method === 'GET':
+                case url.endsWith('/account') && method === 'GET':
                     return getAccounts();
                 case url.match(/\/accounts\/\d+$/) && method === 'GET':
                     return getAccountById();

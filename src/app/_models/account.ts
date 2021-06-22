@@ -7,3 +7,12 @@ export class Account {
     role: Role;
     jwtToken?: string;
 }
+
+
+export class ResponseBase<T> {
+    responseTime: any;
+    code:number;
+    message:string;
+    data: T; 
+    count:number; 
+}
