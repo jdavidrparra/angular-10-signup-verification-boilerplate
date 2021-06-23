@@ -42,8 +42,9 @@ export class ForgotPasswordComponent implements OnInit {
             .pipe(first())
             .pipe(finalize(() => this.loading = false))
             .subscribe({
-                next: () => this.alertService.success('Please check your email for password reset instructions'),
-                error: error => this.alertService.error(error)
+                    next: () => this.alertService.success("Consulte su correo electrónico para obtener instrucciones para restablecer la contraseña."),
+                    error: error => this.alertService.error(error), 
+                    
             });
     }
 }

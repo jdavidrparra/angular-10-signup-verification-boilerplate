@@ -11,7 +11,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let account of accounts">
+        <tr *ngFor="let account of lstaccounts">
             <td>{{account.name}}</td>
             <td>{{account.email}}</td>
             <td>{{account.role}}</td>
@@ -23,7 +23,7 @@
                 </button>
             </td>
         </tr>
-        <tr *ngIf="!accounts">
+        <tr *ngIf="!lstaccounts">
             <td colspan="4" class="text-center">
                 <span class="spinner-border spinner-border-lg align-center"></span>
             </td>

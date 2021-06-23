@@ -27,8 +27,6 @@ export class AddEditComponent implements OnInit {
         this.isAddMode = !this.id;
 
         this.form = this.formBuilder.group({
-            // title: ['', Validators.required],
-            // firstName: ['', Validators.required],
             name: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
             role: ['', Validators.required],
@@ -41,7 +39,7 @@ export class AddEditComponent implements OnInit {
         if (!this.isAddMode) {
             this.accountService.getById(this.id)
                 .pipe(first())
-                .subscribe(x => this.form.patchValue(x));
+                .subscribe(x => this.form.patchValue(x.data));
         }
     }
 

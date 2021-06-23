@@ -6,23 +6,23 @@ import { Account } from '@app/_models';
 
 @Component({ templateUrl: 'list.component.html' })
 export class ListComponent implements OnInit {
-    accounts: any[];
+    lstaccounts: Account[];
 
     constructor(private accountService: AccountService) {}
 
     ngOnInit() {
         this.accountService.getAll()
             .pipe(first())
-            .subscribe(accounts => this.accounts = accounts);
+            .subscribe(accounts => this.lstaccounts = accounts.data);
     }
 
     deleteAccount(id: string) {
-        const account = this.accounts.find(x => x.id === id);
-        account.isDeleting = true;
+        const account = this.lstaccounts.find(x => x.id === id);
+        //account.dele = true;
         this.accountService.delete(id)
             .pipe(first())
             .subscribe(() => {
-                this.accounts = this.accounts.filter(x => x.id !== id) 
+                this.lstaccounts = this.lstaccounts.filter(x => x.id !== id) 
             });
     }
 }

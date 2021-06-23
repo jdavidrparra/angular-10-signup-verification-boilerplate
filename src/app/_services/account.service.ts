@@ -71,12 +71,12 @@ export class AccountService {
         return this.http.post(`${baseUrl}/reset-password`, { token, password, confirmPassword });
     }
 
-    getAll() {
-        return this.http.get<Account[]>(baseUrl);
+    getAll() { 
+            return this.http.get<ResponseBase<Account[]>>(baseUrl);
     }
 
     getById(id: string) {
-        return this.http.get<Account>(`${baseUrl}/${id}`);
+        return this.http.get<ResponseBase<Account>>(`${baseUrl}/${id}`);
     }
     
     create(params) {
@@ -84,7 +84,6 @@ export class AccountService {
     }
     
     update(id, params) {
-        debugger;
         return this.http.put(`${baseUrl}/${id}`, params)
             .pipe(map((account: any) => {
                 // update the current account if it was updated
@@ -112,7 +111,6 @@ export class AccountService {
 
     private startRefreshTokenTimer() {
         // parse json object from base64 encoded jwt token
-        debugger;
         const jwtToken = JSON.parse(atob(this.accountValue.jwtToken.split('.')[1]));
 
         // set a timeout to refresh the token a minute before it expires
